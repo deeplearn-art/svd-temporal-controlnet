@@ -52,14 +52,14 @@ def save_gifs_side_by_side(batch_output, validation_images, validation_control_i
         return dst
 
     # Combine the GIFs into a single file
-    combined_gif_path = os.path.join(output_folder, f"combined_frames_{timestamp}.gif")
-    combine_gifs_side_by_side(gif_paths, combined_gif_path)
+    #combined_gif_path = os.path.join(output_folder, f"combined_frames_{timestamp}.gif")
+    #combine_gifs_side_by_side(gif_paths, combined_gif_path)
 
     # Clean up temporary GIFs
-    for gif_path in gif_paths:
-        os.remove(gif_path)
+    #for gif_path in gif_paths:
+    #    os.remove(gif_path)
 
-    return combined_gif_path
+    #return combined_gif_path
 
 # Define functions
 def validate_and_convert_image(image, target_size=(256, 256)):
