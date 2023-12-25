@@ -252,6 +252,8 @@ if __name__ == "__main__":
     }
 
     # Load validation images and control images
+    width = args["width"]
+    height = args["height"]
     validation_images = load_images_from_folder_to_pil(args["validation_image_folder"],(width, height))
     #validation_images = convert_list_bgra_to_rgba(validation_images)
     validation_control_images = load_images_from_folder_to_pil(args["validation_control_folder"],(width,height))
