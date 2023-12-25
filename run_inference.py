@@ -172,7 +172,7 @@ def load_images_from_folder(folder):
 def load_images_from_folder_to_pil(folder, target_size=(512, 512)):
     images = []
     valid_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff"}  # Add or remove extensions as needed
-    print("target size : " + target_size)
+  
     def frame_number(filename):
         matches = re.findall(r'\d+', filename)  # Find all sequences of digits in the filename
         if matches:
@@ -246,8 +246,8 @@ if __name__ == "__main__":
         "validation_control_folder": "./validation_demo/depth",
         "validation_image": "./validation_demo/chair.png",
         "output_dir": "./output",
-        "height": 512,
-        "width": 512,
+        "height": 576,
+        "width": 1024,
         # cant be bothered to add the args in myself, just use notepad
     }
 
@@ -273,6 +273,6 @@ if __name__ == "__main__":
 
     # Inference and saving loop
 
-    video_frames = pipeline(validation_image, validation_control_images[:14], decode_chunk_size=8,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
+    video_frames = pipeline(validation_image, width=width, height=height,validation_control_images[:14], decode_chunk_size=8,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
 
     save_gifs_side_by_side(video_frames,validation_images, validation_control_images,val_save_dir)
