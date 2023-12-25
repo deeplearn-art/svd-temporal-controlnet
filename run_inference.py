@@ -172,7 +172,7 @@ def load_images_from_folder(folder):
 def load_images_from_folder_to_pil(folder, target_size=(512, 512)):
     images = []
     valid_extensions = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff"}  # Add or remove extensions as needed
-
+    print("target size : " + target_size)
     def frame_number(filename):
         matches = re.findall(r'\d+', filename)  # Find all sequences of digits in the filename
         if matches:
@@ -252,9 +252,9 @@ if __name__ == "__main__":
     }
 
     # Load validation images and control images
-    validation_images = load_images_from_folder_to_pil(args["validation_image_folder"])
+    validation_images = load_images_from_folder_to_pil(args["validation_image_folder"],(width, height))
     #validation_images = convert_list_bgra_to_rgba(validation_images)
-    validation_control_images = load_images_from_folder_to_pil(args["validation_control_folder"])
+    validation_control_images = load_images_from_folder_to_pil(args["validation_control_folder"],(width,height))
     validation_image = Image.open(args["validation_image"]).convert('RGB')
 
 
