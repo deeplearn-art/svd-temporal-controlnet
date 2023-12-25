@@ -21,8 +21,8 @@ def save_gifs_side_by_side(batch_output, validation_images, validation_control_i
     # Creating GIFs for each image list
     timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     gif_paths = []
-    for idx, image_list in enumerate([validation_images, validation_control_images, flattened_batch_output]):
-        gif_path = os.path.join(output_folder, f"temp_{idx}_{timestamp}.gif")
+    for idx, image_list in enumerate([flattened_batch_output]):
+        gif_path = os.path.join(output_folder, f"{idx}_{timestamp}.gif")
         create_gif(image_list, gif_path)
         gif_paths.append(gif_path)
 
@@ -74,12 +74,14 @@ def validate_and_convert_image(image, target_size=(256, 256)):
                 image = image.repeat(3, 1, 1)
             image = image.mul(255).clamp(0, 255).byte().permute(1, 2, 0).cpu().numpy()
             image = Image.fromarray(image)
+            print(image)
         else:
             print(f"Invalid image tensor shape: {image.shape}")
             return None
     elif isinstance(image, Image.Image):
         # Resize PIL Image
-        image = image.resize(target_size)
+        #image = image.resize(target_size)
+        pass
     else:
         print("Image is not a PIL Image or a PyTorch tensor")
         return None
@@ -273,6 +275,6 @@ if __name__ == "__main__":
 
     # Inference and saving loop
 
-    video_frames = pipeline(validation_image, width=width, height=height,validation_control_images[:14], decode_chunk_size=8,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
+    video_frames = pipeline(validation_image, validation_control_images[:14], width=width, height=height, decode_chunk_size=8,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
 
     save_gifs_side_by_side(video_frames,validation_images, validation_control_images,val_save_dir)
