@@ -72,6 +72,7 @@ def tensor2vid(video: torch.Tensor, processor, output_type="np"):
     # https://github.com/modelscope/modelscope/blob/1509fdb973e5871f37148a4b5e5964cafd43e64d/modelscope/pipelines/multi_modal/text_to_video_synthesis_pipeline.py#L78
 
     batch_size, channels, num_frames, height, width = video.shape
+    print(f"tensor2vid {width},{height}")    
     outputs = []
     for batch_idx in range(batch_size):
         batch_vid = video[batch_idx].permute(1, 0, 2, 3)
@@ -417,7 +418,7 @@ class StableVideoDiffusionPipelineControlNet(DiffusionPipeline):
         # 0. Default height and width to unet
         height = height or self.unet.config.sample_size * self.vae_scale_factor
         width = width or self.unet.config.sample_size * self.vae_scale_factor
-
+        print(f"pipeline {width}, {height}")
         num_frames = num_frames if num_frames is not None else self.unet.config.num_frames
         decode_chunk_size = decode_chunk_size if decode_chunk_size is not None else num_frames
 
