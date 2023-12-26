@@ -268,7 +268,7 @@ if __name__ == "__main__":
     pipeline = StableVideoDiffusionPipelineControlNet.from_pretrained(args["pretrained_model_name_or_path"],controlnet=controlnet,unet=unet)
     pipeline.enable_model_cpu_offload()
     # Additional pipeline configurations can be added here
-    pipeline.enable_xformers_memory_efficient_attention()
+    #pipeline.enable_xformers_memory_efficient_attention()
     # Create output directory if it doesn't exist
     val_save_dir = os.path.join(args["output_dir"], "validation_images")
     os.makedirs(val_save_dir, exist_ok=True)
