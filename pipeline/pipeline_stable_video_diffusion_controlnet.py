@@ -451,7 +451,8 @@ class StableVideoDiffusionPipelineControlNet(DiffusionPipeline):
         noise = randn_tensor(image.shape, generator=generator, device=image.device, dtype=image.dtype)
         image = image + noise_aug_strength * noise
 
-        needs_upcasting = self.vae.dtype == torch.float16 and self.vae.config.force_upcast
+        needs_upcasting = True #self.vae.dtype == torch.float16 and self.vae.config.force_upcast
+            
         if needs_upcasting:
             self.vae.to(dtype=torch.float32)
 
