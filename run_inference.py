@@ -268,13 +268,13 @@ if __name__ == "__main__":
     pipeline = StableVideoDiffusionPipelineControlNet.from_pretrained(args["pretrained_model_name_or_path"],controlnet=controlnet,unet=unet)
     pipeline.enable_model_cpu_offload()
     # Additional pipeline configurations can be added here
-    #pipeline.enable_xformers_memory_efficient_attention()
+    pipeline.enable_xformers_memory_efficient_attention()
     # Create output directory if it doesn't exist
     val_save_dir = os.path.join(args["output_dir"], "validation_images")
     os.makedirs(val_save_dir, exist_ok=True)
 
     # Inference and saving loop
 
-    video_frames = pipeline(validation_image, validation_control_images[:14], width=width, height=height, decode_chunk_size=8,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
+    video_frames = pipeline(validation_image, validation_control_images[:14], width=width, height=height, decode_chunk_size=1,num_frames=14,motion_bucket_id=100,controlnet_cond_scale=1.0).frames
 
     save_gifs_side_by_side(video_frames,validation_images, validation_control_images,val_save_dir)
