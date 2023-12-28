@@ -263,9 +263,9 @@ if __name__ == "__main__":
 
 
     # Load and set up the pipeline
-    controlnet = controlnet = ControlNetSDVModel.from_pretrained("CiaraRowles/temporal-controlnet-depth-svd-v1",subfolder="controlnet")
-    unet = UNetSpatioTemporalConditionControlNetModel.from_pretrained(args["pretrained_model_name_or_path"],subfolder="unet")
-    pipeline = StableVideoDiffusionPipelineControlNet.from_pretrained(args["pretrained_model_name_or_path"],controlnet=controlnet,unet=unet)
+    controlnet = ControlNetSDVModel.from_pretrained("CiaraRowles/temporal-controlnet-depth-svd-v1",subfolder="controlnet",torch_dtype=torch.float16)
+    unet = UNetSpatioTemporalConditionControlNetModel.from_pretrained(args["pretrained_model_name_or_path"],subfolder="unet",torch_dtype=torch.float16,variant="fp16")
+    pipeline = StableVideoDiffusionPipelineControlNet.from_pretrained(args["pretrained_model_name_or_path"],controlnet=controlnet,unet=unet,torch_dtype=torch.float16, variant="fp16")
     pipeline.enable_model_cpu_offload()
     # Additional pipeline configurations can be added here
     #pipeline.enable_xformers_memory_efficient_attention()
